@@ -1,13 +1,12 @@
-const productUrl = "https://jsonplaceholder.typicode.com/users";
+const usersUrl = "https://jsonplaceholder.typicode.com/users";
+const navUsers = document.getElementById("users");
+const mainUsers = document.getElementById("main-users");
 
 let data = [];
 
-/*-------------------------------------
- 1. Fetch Data
---------------------------------------*/
 async function fetchProduct() {
   try {
-    const response = await fetch(productUrl);
+    const response = await fetch(usersUrl);
     if (!response.ok) {
       throw new Error(
         `Error fetching product: ${response.status} - ${response.statusText}`
@@ -19,18 +18,18 @@ async function fetchProduct() {
   } catch (error) {
     console.error("Fetch failed:", error.message);
     if (navUsers) {
-      navUsers.innerHTML = `<li class="error">Failed to load users. Try again later.</li>`;
+      navUsers.innerHTML += `<li class="error">❌ Failed to load users. Try again later.</li>`;
+    }
+    if (mainUsers) {
+      mainUsers.innerHTML += `<p class="error">❌ Error loading users, please try again.</p>`;
     }
   }
 }
 
-const navUsers = document.getElementById("users");
-const mainUsers = document.getElementById("main-users");
-
 function showUsers(users) {
   if (!navUsers || !mainUsers) return;
 
-  navUsers.innerHTML = ""; // Clear previous content
+  navUsers.innerHTML = "";
 
   if (!users.length) {
     navUsers.innerHTML = "<li>No users found</li>";
@@ -38,17 +37,15 @@ function showUsers(users) {
   }
 
   users.forEach((user) => {
-    // Create list item in nav
     const userItem = document.createElement("li");
     const userLink = document.createElement("a");
-    userLink.href = "#"; // Prevent page jump
+    userLink.href = "#";
     userLink.textContent = user.name;
     userItem.appendChild(userLink);
     navUsers.appendChild(userItem);
 
-    // Add event listener to show details when clicked
     userLink.addEventListener("click", (event) => {
-      event.preventDefault(); // Stop page from jumping
+      event.preventDefault();
       showUserDetails(user);
     });
   });
@@ -56,7 +53,7 @@ function showUsers(users) {
 
 function showAllUsers(users) {
   if (!mainUsers) return;
-  mainUsers.innerHTML = ""; // Clear previous content
+  mainUsers.innerHTML = "";
 
   users.forEach((user) => {
     const userArticle = document.createElement("article");
@@ -73,9 +70,8 @@ function showAllUsers(users) {
 function showUserDetails(user) {
   if (!mainUsers) return;
 
-  // Clear previous content
   mainUsers.innerHTML = `
-    <article class"full-user" id="user-${user.id}">
+    <article class="full-user" id="user-${user.id}">
       <h2>${user.name}</h2>
       <p><strong>Username:</strong> ${user.username}</p>
       <p><strong>Email:</strong> ${user.email}</p>

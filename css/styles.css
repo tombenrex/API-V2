@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@400;700&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -8,25 +8,72 @@
 
 .grid-container {
   display: grid;
-  min-height: 100vh;
+  height: 100vh;
   grid-template-areas:
     "header header"
     "aside main"
     "footer footer";
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
-  font-family: "Poppins";
+  font-family: "Poppins", sans-serif;
   color: #fff;
+  overflow: auto;
+  background-color: #3c3d37;
 }
 
 header {
   grid-area: header;
-  background-color: #210f37;
+  background-color: #18230f;
   text-align: center;
-  border: 0.2rem solid #000;
+  border: 0.1rem solid #1f7d53;
+  display: inline-grid;
+  justify-content: space-between;
+  align-items: center;
+  grid-template-columns: repeat(2, auto);
 }
 
-main {
+header a {
+  color: #fff;
+  text-decoration: none;
+  grid-area: 1 / 1 / 2 / 3;
+}
+
+header h1 {
+  font-family: "Qwitcher Grypen", cursive;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+}
+
+#show-users-btn {
+  background: #255f38;
+  border: 2px solid #fff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+  gap: 1rem;
+  margin: 0.5rem;
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+#show-users-btn:hover {
+  background-color: #1f7d53;
+}
+
+#show-users-btn:active {
+  transition: transform 0.3s ease-in-out;
+  transform: scale(0.95);
+}
+.fa-arrow-left {
+  transition: transform 0.3s ease-in-out;
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+}
+.rotate {
+  transform: scaleX(-1);
+  transition: transform 0.3s ease-in-out;
+}
+
+#main-users {
   grid-area: main;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -35,34 +82,36 @@ main {
 }
 
 article {
-  border: 0.2rem solid #000;
-  background-color: #4f1c51;
-  padding: 0.5rem;
+  border: 0.2rem solid #449f76;
+  background-color: #255f38;
+  padding: 0.2rem;
+  justify-items: center;
 }
 
 article h2 {
   font-size: clamp(1.1rem, 2.5vw, 3rem);
+  color: #ecdfcc;
 }
 
 article p {
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
 }
 
 aside {
+  margin: 5px;
   display: none;
   grid-area: aside;
-  background-color: #a55b4b;
-  border-right: 0.2rem solid #000;
-  border-left: 0.2rem solid #000;
+  background-color: #255f38;
+  border-right: 0.2rem solid #1f7d53;
+  border-left: 0.2rem solid #1f7d53;
 }
 
 aside.active {
   display: block;
 }
 
-nav {
+#users {
   display: flex;
-  align-items: center;
   flex-direction: column;
 }
 
@@ -75,48 +124,16 @@ li a {
   text-decoration: none;
 }
 
-.fa-arrow-left {
-  font-size: 29px;
-}
-
-#show-users-btn {
-  background: #4f1c51;
-  border: 2px solid #fff;
-  color: #fff;
-  display: flex;
-
-  align-items: center;
-  padding: 0.2rem;
-  font-size: 20px;
-  gap: 1rem;
-  margin: 0.5rem;
-}
-
-#show-users-btn:hover {
-  background-color: #a55b4b;
-}
-
-#show-users-btn:active {
-  transition: transform 0.3s ease-in-out; /* Smooth animation */
-}
-.fa-arrow-left {
-  transition: transform 0.3s ease-in-out; /* Smooth animation */
-}
-.rotate {
-  transform: scaleX(-1);
-  transition: transform 0.3s ease-in-out;
-}
-
 footer {
   grid-area: footer;
-  background-color: #210f37;
+  background-color: #18230f;
   text-align: center;
-  border: 0.2rem solid #000;
+  border: 0.1rem solid #1f7d53;
   padding: 1rem;
 }
 
 @media (max-width: 768px) {
-  main {
+  #main-users {
     grid-template-columns: 1fr;
   }
 }
