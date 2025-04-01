@@ -50,13 +50,14 @@ header {
   align-items: center;
 }
 
-header a {
-  text-decoration: none;
-}
-
-.index-container {
+.index-title {
   grid-area: 1 / 1 / 2 / 3;
   font-family: "Qwitcher Grypen", cursive;
+}
+
+.index-title a {
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /*-------------------------------------
@@ -70,6 +71,7 @@ header a {
   gap: 1rem;
   margin: 0.5rem;
   grid-area: 1 / 1 / 2 / 2;
+  cursor: pointer;
 }
 
 li:active,
@@ -128,7 +130,7 @@ article h2 {
 .index-container a:hover {
   color: #697565;
 }
-
+.user-article:hover,
 #show-users-btn:hover,
 li:hover {
   background-color: #3c3d37;
@@ -166,7 +168,7 @@ aside {
   grid-area: aside;
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   transform: translateX(-100%);
-  width: 250px;
+  width: 300px;
 }
 
 aside.active {
@@ -202,6 +204,10 @@ article {
   justify-content: center;
 }
 
+.user-article {
+  cursor: pointer;
+}
+
 li {
   list-style: none;
 }
@@ -216,6 +222,10 @@ li a {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.user-details {
+  display: flex;
 }
 
 footer {
