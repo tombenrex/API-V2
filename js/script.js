@@ -79,7 +79,7 @@ function showUserDetails(userId) {
       <p><strong>Website:</strong> <a href="https://${user.website}" target="_blank">${user.website}</a></p>
       <p><strong>Company:</strong> ${user.company.name}</p>
       <p><strong>Address:</strong> ${user.address.street}, ${user.address.city}, ${user.address.zipcode}</p>
-    <a href="#" onclick="showAllUsers(data)">Go Back</a>
+    <button onclick="showAllUsers(data)">Go Back</button>
       </article>
     
   `;
@@ -89,9 +89,22 @@ const showUsersBtn = document.getElementById("show-users-btn");
 const asideElement = document.querySelector("aside");
 const arrowIcon = showUsersBtn?.querySelector("i");
 
-showUsersBtn?.addEventListener("click", () => {
+showUsersBtn?.addEventListener("click", (e) => {
+  e.stopPropagation(); // Prevent click from propagating to the document
   asideElement?.classList.toggle("active");
   arrowIcon?.classList.toggle("rotate");
+});
+
+// Close the aside if clicked outside or on a link inside the aside
+document.addEventListener("click", (e) => {
+  // Close aside if clicked outside or on a link inside the aside
+  if (
+    !asideElement?.contains(e.target) || // Clicked outside the aside
+    e.target.closest("a") // Clicked on a link inside the aside
+  ) {
+    asideElement?.classList.remove("active");
+    arrowIcon?.classList.remove("rotate");
+  }
 });
 
 fetchUsers();
