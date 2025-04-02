@@ -1,11 +1,14 @@
 const usersUrl = "https://jsonplaceholder.typicode.com/users";
-const navUsers = document.getElementById("users");
+const navUsers = document.getElementById("nav-users");
 const mainUsers = document.getElementById("main-users");
 let data = [];
 
-async function fetchProduct() {
+async function fetchUsers() {
   try {
+    navUsers.innerHTML = `<li>Loading users...</li>`;
+    mainUsers.innerHTML = `<p>Loading users...</p>`;
     const response = await fetch(usersUrl);
+
     if (!response.ok)
       throw new Error(`Error fetching users: ${response.statusText}`);
     data = await response.json();
@@ -19,47 +22,56 @@ async function fetchProduct() {
 }
 
 function showUsers(users) {
-  if (!users.length) return (navUsers.innerHTML = "<li>No users found</li>");
+  if (!users.length) {
+    navUsers.innerHTML = "<p>No users found</p>";
+    return;
+  }
 
-  navUsers.innerHTML = users
-    .map(
-      (user) => `
-    <li><a href="#" onclick="showUserDetails(${user.id})">${user.name}</a></li>
-  `
-    )
-    .join("");
+  navUsers.innerHTML = `
+    <ul>
+      ${users
+        .map(
+          (user) =>
+            `<li><a href="#" onclick="showUserDetails(${user.id})">${user.name}</a></li>`
+        )
+        .join("")}
+    </ul>
+  `;
 }
 
 function showAllUsers(users) {
   mainUsers.innerHTML = users
     .map(
       (user) => `
+      
+    
     <article id="user-${user.id}" class="user-article" onclick="toggleUserDetails(${user.id})">
       <h2>${user.name}</h2>
       <p><strong>Username:</strong> ${user.username}</p>
       <p><strong>Email:</strong> ${user.email}</p>
-    
-    <section class="user-details" style="display:none;">
+    <div class="user-extended">
+        <p><strong>Address:</strong>  ${user.address.city}</p>
         <p><strong>Phone:</strong> ${user.phone}</p>
-        <p><strong>Website:</strong> <a href="https://${user.website}" target="_blank">${user.website}</a></p>
         <p><strong>Company:</strong> ${user.company.name}</p>
-        <p><strong>Address:</strong> ${user.address.street}, ${user.address.city}, ${user.address.zipcode}</p>
-    </section>
+    </div>
     </article>
+    
+    
   `
     )
     .join("");
 }
 
 function toggleUserDetails(userId) {
-  const details = document.querySelector(`#user-${userId} .user-details`);
-  details.style.display = details.style.display === "none" ? "block" : "none";
+  const details = document.querySelector(`#user-${userId} .user-extended`);
+  if (!details) return;
+  details.classList.toggle("active");
 }
 
 function showUserDetails(userId) {
   const user = data.find((user) => user.id === userId);
   mainUsers.innerHTML = `
-    <article id="user-${user.id}" class="full-user">
+    <article id="user-${user.id}" class="max-user">
       <h2>${user.name}</h2>
       <p><strong>Username:</strong> ${user.username}</p>
       <p><strong>Email:</strong> ${user.email}</p>
@@ -67,7 +79,9 @@ function showUserDetails(userId) {
       <p><strong>Website:</strong> <a href="https://${user.website}" target="_blank">${user.website}</a></p>
       <p><strong>Company:</strong> ${user.company.name}</p>
       <p><strong>Address:</strong> ${user.address.street}, ${user.address.city}, ${user.address.zipcode}</p>
-    </article>
+    <a href="#" onclick="showAllUsers(data)">Go Back</a>
+      </article>
+    
   `;
 }
 
@@ -80,4 +94,4 @@ showUsersBtn?.addEventListener("click", () => {
   arrowIcon?.classList.toggle("rotate");
 });
 
-fetchProduct();
+fetchUsers();
