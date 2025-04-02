@@ -156,9 +156,11 @@ aside.active {
 #main-users {
   grid-area: main;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   margin: 5px;
   gap: 5px;
+  margin-left: 10rem;
+  margin-right: 10rem;
 }
 
 #main-users article {
@@ -195,5 +197,6 @@ footer {
 @media (max-width: 768px) {
   #main-users {
     grid-template-columns: 1fr;
+    margin: 1rem;
   }
 }
