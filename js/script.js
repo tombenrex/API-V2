@@ -1,6 +1,7 @@
 const usersUrl = "https://jsonplaceholder.typicode.com/users";
 const navUsers = document.getElementById("nav-users");
 const mainUsers = document.getElementById("main-users");
+
 let data = [];
 
 async function fetchUsers() {
@@ -39,25 +40,26 @@ function showUsers(users) {
         .join("")}</ul>`
     : "<p>No users found</p>";
 
-  // Add event listeners to the newly created links
   const userLinks = navUsers.querySelectorAll("a");
   userLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const userId = link.getAttribute("data-id");
       showUserDetails(Number(userId));
+
+      mainUsers?.classList.add("active");
     });
   });
 }
 
 function showAllUsers(users) {
-  const mainElement = document.getElementById("main-users");
-  mainElement?.classList.remove("active");
+  mainUsers?.classList.remove("active");
   mainUsers.innerHTML = users
     .map(
       (user) => `
     <article id="user-${user.id}">
       <h2>${user.name}</h2>
+      <span class="hover-text">Show more info</span>
       <p><strong>Username:</strong> ${user.username}</p>
       <p><strong>Email:</strong> ${user.email}</p>
       <div class="user-extended">
@@ -65,12 +67,12 @@ function showAllUsers(users) {
         <p><strong>Phone:</strong> ${user.phone}</p>
         <p><strong>Company:</strong> ${user.company.name}</p>
       </div>
+      
     </article>
   `
     )
     .join("");
 
-  // Add event listeners to the newly created articles
   const userArticles = document.querySelectorAll('article[id^="user-"]');
   userArticles.forEach((article) => {
     article.addEventListener("click", () => {
@@ -82,13 +84,18 @@ function showAllUsers(users) {
 
 function toggleUserDetails(userId) {
   const details = document.querySelector(`#user-${userId} .user-extended`);
+  const hoverText = document.querySelector(`#user-${userId} .hover-text`);
+
   details?.classList.toggle("active");
+
+  if (details?.classList.contains("active")) {
+    hoverText.textContent = "Show less info";
+  } else {
+    hoverText.textContent = "Show more info";
+  }
 }
 
 function showUserDetails(userId) {
-  const mainElement = document.getElementById("main-users");
-  mainElement?.classList.toggle("active");
-
   const user = data.find((user) => user.id === userId);
   mainUsers.innerHTML = `
     <article id="user-${user.id}" class="max-user">
@@ -106,7 +113,7 @@ function showUserDetails(userId) {
 
 const showUsersBtn = document.getElementById("show-users-btn");
 const asideElement = document.querySelector("aside");
-const arrowIcon = showUsersBtn?.querySelector("i");
+const arrowIcon = showUsersBtn?.querySelector("svg");
 
 showUsersBtn?.addEventListener("click", (e) => {
   e.stopPropagation();

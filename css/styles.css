@@ -4,6 +4,69 @@
   box-sizing: border-box;
 }
 
+/* Font sizes */
+header a {
+  font-size: clamp(2.3rem, 6vw, 6rem);
+}
+
+#show-users-btn {
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+article h2 {
+  font-size: clamp(1.1rem, 2vw, 2.5rem);
+}
+
+footer,
+li a,
+article p {
+  font-size: clamp(0.8rem, 1vw, 1.5rem);
+}
+
+/* Color */
+#main-users article,
+article button,
+#show-users-btn,
+aside {
+  background-color: #1f7d53;
+}
+
+.title a,
+article button,
+#show-users-btn,
+.grid,
+li a,
+article h2 {
+  color: #fff;
+}
+
+.rainbow-text:hover,
+.title a:hover {
+  color: #ffffff91;
+}
+
+.grid,
+.user-article:hover,
+#show-users-btn:hover,
+article button:hover,
+li:hover {
+  background-color: #27391c;
+}
+
+header,
+footer {
+  background-color: #255f38;
+}
+
+/* Border */
+header,
+aside,
+article,
+footer,
+article button,
+#show-users-btn {
+  border: 0.1rem solid #ffffffa2;
+}
+
 /* Grid */
 .grid {
   display: grid;
@@ -35,6 +98,14 @@ header {
 }
 
 /* Btn */
+article button {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  gap: 0.3rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
 #show-users-btn {
   display: flex;
   align-items: center;
@@ -51,9 +122,10 @@ li:active,
   transform: scale(0.95);
 }
 
-.fa-arrow-left {
+.arrow {
   transition: transform 0.3s ease-in-out;
-  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+  width: clamp(10px, 2vw, 35px);
+  fill: #fff;
 }
 
 .rotate {
@@ -61,76 +133,18 @@ li:active,
   transition: transform 0.3s ease-in-out;
 }
 
-/* Font sizes */
-header a {
-  font-size: clamp(2.3rem, 6vw, 6rem);
-}
-
-#show-users-btn {
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
-}
-article h2 {
-  font-size: clamp(1.1rem, 2vw, 2.5rem);
-}
-
-li a,
-article p {
-  font-size: clamp(0.8rem, 1vw, 1.5rem);
-}
-
-/* Color */
-#main-users,
-#show-users-btn,
-aside {
-  background-color: #697565;
-}
-
-header a,
-#show-users-btn,
-.grid,
-li a,
-article h2 {
-  color: #fff;
-}
-
-.title a:hover {
-  color: #697565;
-}
-
-.grid,
-.user-article:hover,
-#show-users-btn:hover,
-li:hover {
-  background-color: #3c3d37;
-}
-
-header,
-footer {
-  background-color: #181c14;
-}
-
-/* Boarder */
-header,
-aside,
-article,
-footer,
-#show-users-btn {
-  border: 0.1rem solid #fff;
-}
-
 /* Aside Navigation */
 aside {
   margin: 5px;
-  visibility: hidden;
   opacity: 0;
   grid-area: aside;
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   width: 300px;
+  z-index: 1;
 }
 
 aside.active {
-  visibility: visible;
   opacity: 1;
   transform: translateX(0);
 }
@@ -155,23 +169,37 @@ aside.active {
 #main-users {
   grid-area: main;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  margin: 5px;
-  gap: 5px;
-  margin-left: 10rem;
-  margin-right: 10rem;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 10px;
+  gap: 15px;
 }
 
 #main-users article {
   cursor: pointer;
   padding: 1rem;
   min-height: 150px;
+  position: relative;
+}
+
+.hover-text {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px 10px;
+  opacity: 0;
+  visibility: hidden; /* Initially hidden */
+  position: absolute; /* Position relative to the article */
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#main-users article:hover .hover-text {
+  opacity: 1;
+  visibility: visible;
 }
 
 .max-user {
   grid-area: 1 / 1 / 2 / 3;
-  /*   display: flex;
-  flex-direction: column; */
 }
 
 .user-extended {
@@ -188,19 +216,34 @@ aside.active {
   align-items: start;
 }
 
+.rainbow-text {
+  background: linear-gradient(
+    to right,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo
+  );
+  background-clip: text;
+  -webkit-background-clip: text; /* For Safari */
+  color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.685);
+  text-decoration: none;
+}
+
 /* Footer */
 footer {
   grid-area: footer;
-  text-align: center;
+  display: flex;
+  justify-content: center;
   padding: 1rem;
-  position: sticky;
-  bottom: 0;
 }
 
 /* Media */
 @media (max-width: 768px) {
   #main-users {
     grid-template-columns: 1fr;
-    margin: 1rem;
   }
 }
