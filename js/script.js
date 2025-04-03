@@ -51,10 +51,12 @@ function showUsers(users) {
 }
 
 function showAllUsers(users) {
+  const mainElement = document.getElementById("main-users");
+  mainElement?.classList.remove("active");
   mainUsers.innerHTML = users
     .map(
       (user) => `
-    <article id="user-${user.id}" class="user-article">
+    <article id="user-${user.id}">
       <h2>${user.name}</h2>
       <p><strong>Username:</strong> ${user.username}</p>
       <p><strong>Email:</strong> ${user.email}</p>
@@ -69,10 +71,10 @@ function showAllUsers(users) {
     .join("");
 
   // Add event listeners to the newly created articles
-  const userArticles = mainUsers.querySelectorAll(".user-article");
+  const userArticles = document.querySelectorAll('article[id^="user-"]');
   userArticles.forEach((article) => {
     article.addEventListener("click", () => {
-      const userId = article.id.split("-")[1]; // Extract user id from article id
+      const userId = article.id.split("-")[1];
       toggleUserDetails(Number(userId));
     });
   });
@@ -84,6 +86,9 @@ function toggleUserDetails(userId) {
 }
 
 function showUserDetails(userId) {
+  const mainElement = document.getElementById("main-users");
+  mainElement?.classList.toggle("active");
+
   const user = data.find((user) => user.id === userId);
   mainUsers.innerHTML = `
     <article id="user-${user.id}" class="max-user">

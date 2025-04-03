@@ -27,7 +27,6 @@ header {
 
 .title {
   grid-area: 1 / 1 / 2 / 3;
-  font-family: "Open Sans";
 }
 
 .title a {
@@ -171,9 +170,8 @@ aside.active {
 
 .max-user {
   grid-area: 1 / 1 / 2 / 3;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  /*   display: flex;
+  flex-direction: column; */
 }
 
 .user-extended {
@@ -182,6 +180,12 @@ aside.active {
 
 .user-extended.active {
   display: block;
+}
+
+#main-users.active {
+  justify-content: center;
+  justify-items: center;
+  align-items: start;
 }
 
 /* Footer */

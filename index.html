@@ -13,16 +13,20 @@
       as="style"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
+      />
+    </noscript>
+
     <script src="js/script.js" defer></script>
     <link rel="stylesheet" href="css/styles.css" />
-    <script
-      src="https://kit.fontawesome.com/70f7a209bd.js"
-      crossorigin="anonymous"
-      async
-    ></script>
   </head>
   <body class="grid">
     <header>
@@ -30,7 +34,12 @@
         <a href="index.html">User API</a>
       </div>
       <button id="show-users-btn">
-        <i class="fa-solid fa-arrow-left"></i>
+        <!-- <i class="fa-solid fa-arrow-left"></i> -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+          <path
+            d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+          />
+        </svg>
         <p>Show All</p>
       </button>
     </header>
