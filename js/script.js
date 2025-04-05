@@ -35,7 +35,8 @@ function showUsers(users) {
   navUsers.innerHTML = users.length
     ? `<ul>${users
         .map(
-          (user) => `<li><a href="#" data-id="${user.id}">${user.name}</a></li>`
+          (user) =>
+            `<li><a href="#" data-id="${user.id}" title="Show more about ${user.name}">${user.name}</a></li>`
         )
         .join("")}</ul>`
     : "<p>No users found</p>";
