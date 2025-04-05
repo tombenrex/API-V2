@@ -128,4 +128,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-fetchUsers();
+setTimeout(() => {
+  fetchUsers();
+}, 2000);
